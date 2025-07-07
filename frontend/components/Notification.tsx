@@ -34,7 +34,7 @@ export default function NotificationComponent() {
         const fetchNotifications = async () => {
             setIsLoading(true)
             // Simulate API delay
-            const res = await axios.get('http://localhost:4000/api/notifications', {
+            const res = await axios.get('${process.env.NEXT_PUBLIC_API_URL}/api/notifications', {
                 headers: {
                     "Content-Type": "application/json",
                     authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -53,7 +53,7 @@ export default function NotificationComponent() {
     const toggleReadStatus = async (id: string) => {
         try {
             // Simulate API call to toggle read status
-            await axios.put(`http://localhost:4000/api/notifications/${id}/mark-as-read`, {}, {
+            await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/api/notifications/${id}/mark-as-read`, {}, {
                 headers: {
                     "Content-Type": "application/json",
                     authorization: `Bearer ${localStorage.getItem("token")}`,

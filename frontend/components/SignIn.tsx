@@ -4,7 +4,6 @@ import type React from "react"
 import { useEffect, useState } from "react"
 import axios, { AxiosError } from "axios"
 import { useRouter } from "next/navigation"
-import { button } from "motion/react-client"
 
 export default function SignIn() {
     const [email, setEmail] = useState("")
@@ -36,7 +35,7 @@ export default function SignIn() {
             if (showLogin) {
                 // User is trying to log in
                 try {
-                    const res = await axios.post("http://localhost:4000/api/auth/login", {
+                    const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`, {
                         email,
                         password,
                     })
@@ -53,7 +52,7 @@ export default function SignIn() {
                 }
             }
 
-            const res = await axios.post("http://localhost:4000/api/auth/register", {
+            const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/register`, {
                 email,
                 password,
             })

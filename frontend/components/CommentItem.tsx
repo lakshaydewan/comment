@@ -59,7 +59,7 @@ export default function CommentItem({
     if (!replyText.trim()) return
     setLoadingReply(true)
     try {
-      await axios.post("http://localhost:4000/api/comments", {
+      await axios.post("${process.env.NEXT_PUBLIC_API_URL}/api/comments", {
         content: replyText,
         parentId: comment.id,
       }, {
@@ -83,7 +83,7 @@ export default function CommentItem({
     if (!editedText.trim()) return
     setLoadingEdit(true)
     try {
-      await axios.put(`http://localhost:4000/api/comments?id=${comment.id}`, {
+      await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/api/comments?id=${comment.id}`, {
         content: editedText,
       }, {
         headers: {
@@ -104,7 +104,7 @@ export default function CommentItem({
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`http://localhost:4000/api/comments/?id=${comment.id}`, {
+      await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/api/comments/?id=${comment.id}`, {
         headers: {
           authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -198,7 +198,7 @@ export default function CommentItem({
             This comment has been deleted.
             <button>
               <span onClick={async () => {
-                await axios.get(`http://localhost:4000/api/comments/recover?id=${comment.id}`, {
+                await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/comments/recover?id=${comment.id}`, {
                   headers: {
                     "Content-Type": "application/json",
                     authorization: `Bearer ${localStorage.getItem("token")}`,

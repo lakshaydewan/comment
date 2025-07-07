@@ -42,13 +42,13 @@ const Home = () => {
 
   useEffect(() => {
     if (page === 1) {
-      axios.get(`http://localhost:4000/api/comments?page=${page}`).then((res) => {
+      axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/comments?page=${page}`).then((res) => {
         console.log(res.data.comments)
         setComments(res.data.comments)
       })
     }
     else {
-      axios.get(`http://localhost:4000/api/comments?page=${page}`).then((res) => {
+      axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/comments?page=${page}`).then((res) => {
         console.log("After page set:- ", res.data.comments)
         if (res.data.comments.length === 0) {
           setEnd(true)
@@ -94,7 +94,7 @@ const Home = () => {
                   setLoading(true)
                   try {
                     const res = await axios.post(
-                      "http://localhost:4000/api/comments",
+                      `${process.env.NEXT_PUBLIC_API_URL}/api/comments`,
                       {
                         content: comment,
                         parentId: null,
