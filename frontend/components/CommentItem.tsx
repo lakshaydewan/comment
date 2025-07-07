@@ -37,16 +37,11 @@ export default function CommentItem({
   const [replyText, setReplyText] = useState("")
   const [loadingReply, setLoadingReply] = useState(false)
   const [deleted, setDeleted] = useState(comment.isDeleted)
-
   const [isEditing, setIsEditing] = useState(false)
   const [editedText, setEditedText] = useState(comment.content)
   const [loadingEdit, setLoadingEdit] = useState(false)
 
-  console.log("CommentItem rendered for comment:", comment.user.id);
-  console.log("Current user ID:", currentUserId);
-  console.log("Comment content:", comment.user.id);
   const isOwner = currentUserId === comment.user.id;
-  console.log("Is owner:", isOwner);
 
   const loadReplies = () => {
     if (!showReplies) {
@@ -59,7 +54,7 @@ export default function CommentItem({
     if (!replyText.trim()) return
     setLoadingReply(true)
     try {
-      await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/comments`, {
+      const res =await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/comments`, {
         content: replyText,
         parentId: comment.id,
       }, {
@@ -68,10 +63,13 @@ export default function CommentItem({
           authorization: `Bearer ${localStorage.getItem("token")}`,
         }
       })
-
+      console.log("Reply posted:", res.data.comment)
+      // update the replies state to include the new reply
+      setReplies(prev => [...prev, {
+        ...res.data.comment,
+      }])
       setReplyText("")
       setShowReplyBox(false)
-      if (onReplySubmit) onReplySubmit()
     } catch (error) {
       console.error("Failed to post reply:", error)
     } finally {

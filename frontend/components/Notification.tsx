@@ -34,15 +34,20 @@ export default function NotificationComponent() {
         const fetchNotifications = async () => {
             setIsLoading(true)
             // Simulate API delay
-            const res = await axios.get('${process.env.NEXT_PUBLIC_API_URL}/api/notifications', {
-                headers: {
-                    "Content-Type": "application/json",
-                    authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-            })
-            console.log("Fetched notifications:", res.data.notifications)
-            setNotifications(res.data.notifications)
-            setIsLoading(false)
+            try {
+                const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/notifications`, {
+                    headers: {
+                        "Content-Type": "application/json",
+                        authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
+                })
+                console.log("Fetched notifications:", res.data.notifications)
+                setNotifications(res.data.notifications)
+            } catch (error) {
+                console.error("Error fetching notifications:", error)
+            } finally {
+                setIsLoading(false)
+            }
         }
 
         fetchNotifications()

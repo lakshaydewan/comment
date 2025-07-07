@@ -14,6 +14,7 @@ export const createComment: RequestHandler = async (req: Request, res: Response)
   }
 
   try {
+    
     const comment = await prisma.comment.create({
       data: {
         content,
