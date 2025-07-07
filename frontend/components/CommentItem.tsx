@@ -59,7 +59,7 @@ export default function CommentItem({
     if (!replyText.trim()) return
     setLoadingReply(true)
     try {
-      await axios.post("${process.env.NEXT_PUBLIC_API_URL}/api/comments", {
+      await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/comments`, {
         content: replyText,
         parentId: comment.id,
       }, {
