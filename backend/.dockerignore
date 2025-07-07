@@ -1,0 +1,23 @@
+# Node & build artifacts
+node_modules
+dist
+.prisma
+coverage
+npm-debug.log
+
+# Local env files
+.env
+.env.*     # exclude all .env variants (use example.env inside Docker)
+
+# IDE/editor files
+.vscode
+*.swp
+*.swo
+.DS_Store
+
+# OS and misc
+*.log
+
+# Git
+.git
+.gitignore

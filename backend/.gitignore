@@ -1,0 +1,14 @@
+node_modules
+# Keep environment variables out of version control
+.env
+.env.local
+.env.*
+
+package-lock.json
+
+# Ignore build output
+dist
+build
+out
+
+/generated/prisma
